@@ -39,3 +39,13 @@ How to run the notebook without prompts.
 - Demo inputs: 20 simulated NISAR L2 GCOV granules for the LENO site (3.77 GB) and a land-cover raster, streamed anonymously from the public Wasabi bucket `s3://nisar-public-ebd` (endpoint `https://s3.us-west-1.wasabisys.com`). No login.
 - All 20 scenes take many hours on 4 cores (the per-pixel inversion is about 25 minutes per scene). `EXCLUDE_ROWS 2-19` keeps the first two scenes, about an hour.
 - The L3 product is written to `data_repo/output/nisar/LENO/<FILE_NAME>/output/<FILE_NAME>.tif` (Cloud-Optimized GeoTIFF, Mg/ha, 100 m).
+
+## Check
+
+On 2026-10-24, in a fresh conda env built from `requirements.yml` (Python 3.14.9, GDAL 3.13.3, rasterio 1.5.2, numpy 2.5.4, pandas 3.1.0, scipy 1.18.1) plus papermill, from `algorithm/notebooks/`:
+
+```sh
+papermill NISAR_L3_AGB_ProductGeneration.ipynb out.ipynb -p DATABASE_NAME DEMO -p EXCLUDE_ROWS 2-19
+```
+
+It ran to the end with no prompts: 72 minutes on 4 cores, 4.9 GB peak for the largest process. The L3 mean AGB over the 480,382 scene-mask pixels is the same as from the unchanged code (mean 113.31 Mg/ha, median 116.0, 5th to 95th percentile 17.2 to 203.1). The per-scene maps now come out one per scene, `_agb_predictions_20210806.tif` (mean 100.23) and `_agb_predictions_20210820.tif` (mean 126.39); before the fix only one file survived and it held the second scene.
