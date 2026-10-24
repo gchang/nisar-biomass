@@ -260,8 +260,11 @@ def GetExtent(ds):
 
 
 # # Function to handle flexible input from user (number, list, or range)
-def filter_data(df):
-    user_input = input("Enter an index (e.g., 1) / a list of indices separated by spaces or commas (e.g., 1, 5) / range of indices (e.g., 1-5): ").strip()
+def filter_data(df, user_input=None):
+    # ASK ONLY WHEN NO SELECTION IS GIVEN (E.G. EXCLUDE_ROWS FROM THE NOTEBOOK PARAMETERS)
+    if user_input is None:
+        user_input = input("Enter an index (e.g., 1) / a list of indices separated by spaces or commas (e.g., 1, 5) / range of indices (e.g., 1-5): ")
+    user_input = str(user_input).strip()
     
     if not user_input:
         print("\nNo filtering applied. Returning original DataFrame.")
