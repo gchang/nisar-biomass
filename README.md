@@ -26,6 +26,10 @@ Repository for L3 science products for the Ecosystems Biomass workflow.
    python -m ipykernel install --user --name=NISAR_Biomass
    jupyter notebook
    ```
+   To run the demo without prompts (for example in a batch job), set the notebook parameters with papermill from `algorithm/notebooks/`:
+   ```
+   papermill NISAR_L3_AGB_ProductGeneration.ipynb out.ipynb -p DATABASE_NAME DEMO -p EXCLUDE_ROWS ''
+   ```
 test
 
    
