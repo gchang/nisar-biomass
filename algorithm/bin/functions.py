@@ -306,7 +306,7 @@ def filter_data(df, user_input=None):
 def get_version_number(DIRECTORY, OVERWRITE = True):
     from datetime import datetime
     # LIST ALL FILES WITH VERSION NUMBER IN THE DIRECTORY
-    MY_LIST = glob.glob(DIRECTORY + '\*_FILTERED_DATA.csv')
+    MY_LIST = glob.glob(os.path.join(DIRECTORY, '*_FILTERED_DATA.csv'))
     
     # CURRENT_DATE = datetime.now().date()
     
